@@ -77,7 +77,7 @@ class DataView():
 
         salesSum = dfResumoCategorias['Sales'].sum()
         lucro = dfResumoCategorias['Profit'].sum()
-        custo = salesSum - lucro
+        custo = round(salesSum - lucro, 2)
         margem = round((lucro / salesSum) * 100, 2)
 
         cabecalho = f'''
