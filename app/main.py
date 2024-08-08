@@ -2,7 +2,6 @@ import requests, json, time
 import streamlit as st
 import pandas as pd
 import locale
-locale.setlocale(locale.LC_ALL, "de_DE")
 
 
 class ManipulacaoDados():
@@ -82,9 +81,7 @@ class DataView():
         custo = round(salesSum - lucro, 2)
         margem = round((lucro / salesSum) * 100, 2)
 
-        lucroText, lucro = '', str(lucro).split('.')
 
-        lucro = locale.currency(lucro, grouping=True, symbol=None)
 
         cabecalho = f'''
         <div style="display: flex; flex-direction: row;">
