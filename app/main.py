@@ -12,7 +12,7 @@ class ManipulacaoDados():
         response = requests.get(url).json()['status']
         
         data = []
-        for i in response: 
+        for i in response:
             try:
                 i['Sales'] = float(i['Sales'])
             except:
@@ -55,7 +55,12 @@ class ManipulacaoDados():
         
         return resumoCategory
         
+    def coHort(df):
+        df[['dia', 'hora']] = df['Order Date'].str.split('T', expand=True)
+        df['dia'] = pd.to_datetime(df['dia'], format='%Y-%m-%d')
         
+        mes = df['dia'].dt.month
+        st.write(mes)   
 
 class DataView():
 
@@ -117,7 +122,7 @@ class DataView():
                 </thead>
                 <tbody >
                     <td style="background-color: white ;border: 0.1rem solid rgb(170, 170, 170); border-radius: 0.5rem; color : black">
-                        R$ {lucro}
+                        R$ {lucro:.2f}
                     </td>
                 </tbody>
             </table>
@@ -200,14 +205,19 @@ class DataView():
         df = df.reset_index()
         st.bar_chart(df, x="Region", y="Profit", color="Category", stack=False)
 
+
 class Aplicativo():
     def __init__(self):
+
         st.set_page_config(layout="wide")
         st.html('<h5>Em desenvolvimento... 👷</h5>')
         st.html("<br>")
         DataView.tituloResumo()
 
         df = ManipulacaoDados.constroiDataFrame()
+
+        ManipulacaoDados.coHort(df)
+
         resumoCategorias = ManipulacaoDados.ResumoGeralCategorias(df)
         DataView.cardsResumo(resumoCategorias)
         st.html("<br>")
