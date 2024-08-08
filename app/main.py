@@ -1,4 +1,4 @@
-import requests, json, time, locale
+import requests, json, time
 import streamlit as st
 import pandas as pd
 
@@ -75,14 +75,10 @@ class DataView():
 
     def cardsResumo(dfResumoCategorias):
 
-        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
         salesSum = dfResumoCategorias['Sales'].sum()
         lucro = dfResumoCategorias['Profit'].sum()
         custo = salesSum - lucro
         margem = round((lucro / salesSum) * 100, 2)
-        salesSum = locale.currency(salesSum, grouping=True, symbol=None)
-        lucro = locale.currency(lucro, grouping=True, symbol=None)
-        custo = locale.currency(custo, grouping=True, symbol=None)
 
         cabecalho = f'''
         <div style="display: flex; flex-direction: row;">
