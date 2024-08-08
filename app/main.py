@@ -141,7 +141,7 @@ class DataView():
         for i in dfResumoCategorias.index:
             lista.append(i)
         
-        dic = {'Categoria' : [], 'Margem' : [] }
+        dic = {'Categoria' : [], 'Profit' : [] }
         
         info = ['', 0]
         for a, i in enumerate(dfResumoCategorias):
@@ -149,12 +149,12 @@ class DataView():
                 cat = dic['Categoria']
                 cat.append(lista[a])
                 dic['Categoria'] = cat
-                lucro = dic['Margem']
+                lucro = dic['Profit']
                 valor = dfResumoCategorias[dfResumoCategorias.index == lista[a]]['Profit'].sum() / dfResumoCategorias[dfResumoCategorias.index == lista[a]]['Sales'].sum()
                 lucro.append(round((valor * 100), 2))
                 if round((valor * 100), 2) > info[1]:
                     info = [lista[a], round((valor * 100), 2)]
-                dic['Margem'] = lucro
+                dic['Profit'] = lucro
             except:
                 pass
         
@@ -167,8 +167,8 @@ class DataView():
         st.bar_chart(
             chart_data,
             x="Categoria",
-            y="Margem",
-            y_label='Margem',
+            y="Profit",
+            y_label='Profit',
             x_label="Categoria",
             color=["#07074E"],  # Optional
         )
